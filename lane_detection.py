@@ -27,7 +27,9 @@ def get_lane_curve(img,display = 2):
     curve_list.append(curve_raw)
     if len(curve_list) > avg_list_value:
         curve_list.pop(0)
-    curve = int(sum(curve_list/len(curve_list)))
+    curve = 0
+    for curves in curve_list:
+        curve += int(curves/len(curve_list))
     
     #Step 5:
     if display != 0:
@@ -37,7 +39,7 @@ def get_lane_curve(img,display = 2):
         img_lane_color = np.zeros_like(img)
         img_lane_color[:] = 0,255,0
         img_lane_color = cv2.bitwise_and(img_in_warp,img_lane_color)
-        img_result = cv2.addWeighted(img_result,img_lane_color, 1,0)
+        img_result = cv2.addWeighted(img_result,1,img_lane_color, 1,0)
         mid_y = 450
         cv2.putText(img_result,str(curve),(w//2 - 80, 85),cv2.FONT_HERSHEY_COMPLEX,2,(255,0,255),1)
         cv2.line(img_result,(w//2,mid_y),(w//2 + (curve * 3), mid_y), (255,0,255,5))
@@ -47,20 +49,25 @@ def get_lane_curve(img,display = 2):
             cv2.line(img_result,(w*x + int(curve//50), mid_y - 10),(w * x + int(curve// 50), mid_y + 10), (0,0,255), 2)
         #fps = cv2.getTickFrequency() /(cv2.getTickCount() - timer)
         # cv2.putText(img_result, "FPS", str(int(fps)), (20,40), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0 , 255), 1)
-    if display == 2:
-        img_stacked = utils.stack_image(0.7,([img,img_warp_points,img_warp],[img_hist, img_lane_color, img_result]))
-        cv2.imshow("ImageStack",img_stacked)
-    elif display == 1:
-        cv2.imshow("Result", img_result)
+    # if display == 2:
+    #     img_stacked = utils.stack_image(0.7,([img,img_warp_points,img_warp],[img_hist, img_lane_color, img_result]))
+    #     cv2.imshow("ImageStack",img_stacked)
+    # elif display == 1:
+    #     cv2.imshow("Result", img_result)
+    
+    curve = curve/100
+    if curve > 1: cruve = 1
+    if curve< -1: curve = -1
         
     cv2.imshow('Thresh',img_thres)
     cv2.imshow('Warp',img_warp)
     cv2.imshow('Warp Points',img_warp_points)
     cv2.imshow('Histogram',img_hist)
-    return None
+    return curve
 
 if __name__ == "__main__":
-    cap = cv2.VideoCapture('vid1.mp4')
+    cap = cv2.VideoCapture('http://192.168.29.216:4747/video')
+    # cap = utils.video_capture('http://192.168.43.14:4747/video')
     initial_tracebar_vals = [102,80,20,214]
     utils.initialize_trackbars(initial_tracebar_vals)
     frame_counter = 0
