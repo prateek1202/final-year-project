@@ -47,22 +47,19 @@ def get_lane_curve(img,display = 2):
         for x in range(-30,30):
             w2 = w//20
             cv2.line(img_result,(w*x + int(curve//50), mid_y - 10),(w * x + int(curve// 50), mid_y + 10), (0,0,255), 2)
-        #fps = cv2.getTickFrequency() /(cv2.getTickCount() - timer)
+        # fps = cv2.getTickFrequency() /(cv2.getTickCount() - timer)
         # cv2.putText(img_result, "FPS", str(int(fps)), (20,40), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0 , 255), 1)
-    # if display == 2:
-    #     img_stacked = utils.stack_image(0.7,([img,img_warp_points,img_warp],[img_hist, img_lane_color, img_result]))
-    #     cv2.imshow("ImageStack",img_stacked)
-    # elif display == 1:
-    #     cv2.imshow("Result", img_result)
+    if display == 2:
+        img_stacked = utils.stack_image(0.7,([img,img_warp_points,img_warp],[img_hist, img_lane_color, img_result]))
+        cv2.imshow("ImageStack",img_stacked)
+    elif display == 1:
+        cv2.imshow("Result", img_result)
     
+    # Normalization
     curve = curve/100
-    if curve > 1: cruve = 1
-    if curve< -1: curve = -1
-        
-    cv2.imshow('Thresh',img_thres)
-    cv2.imshow('Warp',img_warp)
-    cv2.imshow('Warp Points',img_warp_points)
-    cv2.imshow('Histogram',img_hist)
+    if curve>1: curve ==1
+    if curve<-1:curve == -1
+ 
     return curve
 
 if __name__ == "__main__":
