@@ -27,9 +27,10 @@ def get_lane_curve(img,display = 2):
     curve_list.append(curve_raw)
     if len(curve_list) > avg_list_value:
         curve_list.pop(0)
-    curve = 0
-    for curves in curve_list:
-        curve += int(curves/len(curve_list))
+    curve = int(sum(curve_list)/len(curve_list))
+    # curve = 0
+    # for curves in curve_list:
+    #     curve += int(curves/len(curve_list))
     
     #Step 5:
     if display != 0:
