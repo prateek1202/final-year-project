@@ -50,7 +50,8 @@ def get_lane_curve(img,display = 2):
         # fps = cv2.getTickFrequency() /(cv2.getTickCount() - timer)
         # cv2.putText(img_result, "FPS", str(int(fps)), (20,40), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0 , 255), 1)
     if display == 2:
-        img_stacked = utils.stack_image(0.7,([img,img_warp_points,img_warp],[img_hist, img_lane_color, img_result]))
+        img_stacked = utils.stack_image(0.7,([img,img_warp_points,img_warp],
+                                             [img_hist, img_lane_color, img_result]))
         cv2.imshow("ImageStack",img_stacked)
     elif display == 1:
         cv2.imshow("Result", img_result)
@@ -63,8 +64,9 @@ def get_lane_curve(img,display = 2):
     return curve
 
 if __name__ == "__main__":
-    cap = cv2.VideoCapture('http://192.168.29.216:4747/video')
-    # cap = utils.video_capture('http://192.168.43.14:4747/video')
+    # cap = cv2.VideoCapture('http://192.168.29.216:4747/video')
+    cap = cv2.VideoCapture('vid1.mp4')
+    # cap = utils.video_capture('vid1.mp4')
     initial_tracebar_vals = [102,80,20,214]
     utils.initialize_trackbars(initial_tracebar_vals)
     frame_counter = 0
@@ -76,6 +78,6 @@ if __name__ == "__main__":
         
         success,img = cap.read()
         img = cv2.resize(img,(480,240))
-        get_lane_curve(img)
+        get_lane_curve(img,display=2)
         cv2.imshow('Vid',img)
         cv2.waitKey(1)
