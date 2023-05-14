@@ -1,4 +1,5 @@
-import RPi.GPIO as GPIO
+# import RPi.GPIO as GPIO
+from EmulatorGUI import GPIO
 from time import sleep
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)

@@ -10,17 +10,17 @@ def main():
     
     sen = 1
     max_speed = 0.3
-    if curveVal>maxVAl:
-        curveVal = maxVAl
-    if curveVal<-maxVAl:
-        curveVal =-maxVAl
-    print(curveVal)
-    if curveVal>0:
+    if curve_val>max_speed:
+        curve_val = max_speed
+    if curve_val<-max_speed:
+        curve_val =-max_speed
+    print(curve_val)
+    if curve_val>0:
         sen =1.7
-        if curveVal<0.05: curveVal=0
+        if curve_val<0.05: curve_val=0
     else:
-        if curveVal>-0.08: curveVal=0
-    motor.move(0.20,-curveVal*sen,0.05)
+        if curve_val>-0.08: curve_val=0
+    motor.move(0.20,curve_val*sen,0.05)
     #cv2.waitKey(1)
     
 if __name__ == "__main__":
