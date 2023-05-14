@@ -8,7 +8,7 @@ def main():
     img = webcam.get_image()
     curve_val = get_lane_curve(img,1)
     
-    sen = 1
+    sen = 1.3
     max_speed = 0.3
     if curve_val>max_speed:
         curve_val = max_speed
@@ -20,7 +20,7 @@ def main():
         if curve_val<0.05: curve_val=0
     else:
         if curve_val>-0.08: curve_val=0
-    motor.move(0.20,curve_val*sen,0.05)
+    motor.move(0.5,curve_val*sen,0.05)
     #cv2.waitKey(1)
     
 if __name__ == "__main__":
