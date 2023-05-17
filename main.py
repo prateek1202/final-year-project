@@ -1,28 +1,30 @@
 from motor_module import Motor
 from lane_detection import get_lane_curve
 import webcam
-
-motor = Motor(2, 3, 4, 17, 22, 27)
-
+ 
+##################################################
+motor = Motor(2,3,4,17,22,27)
+##################################################
+ 
 def main():
-    img = webcam.get_image()
-    curve_val = get_lane_curve(img,1)
-    
-    sen = 1.3
-    max_speed = 0.3
-    if curve_val>max_speed:
-        curve_val = max_speed
-    if curve_val<-max_speed:
-        curve_val =-max_speed
-    print(curve_val)
-    if curve_val>0:
+ 
+    img = webcam.getImg()
+    curveVal= get_lane_curve(img,1)
+ 
+    sen = 1.3  # SENSITIVITY
+    maxVAl= 0.3 # MAX SPEED
+    if curveVal>maxVAl:curveVal = maxVAl
+    if curveVal<-maxVAl: curveVal =-maxVAl
+    #print(curveVal)
+    if curveVal>0:
         sen =1.7
-        if curve_val<0.05: curve_val=0
+        if curveVal<0.05: curveVal=0
     else:
-        if curve_val>-0.08: curve_val=0
-    motor.move(0.5,curve_val*sen,0.05)
+        if curveVal>-0.08: curveVal=0
+    motor.move(0.20,-curveVal*sen,0.05)
     #cv2.waitKey(1)
-    
-if __name__ == "__main__":
+     
+ 
+if __name__ == '__main__':
     while True:
         main()
