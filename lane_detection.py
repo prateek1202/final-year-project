@@ -15,8 +15,9 @@ def get_lane_curve(img,display = 2):
     #Step 2 : warping
     h,w,c = img.shape
     points = utils.val_trackbars()
+    # points = [102, 80, 20, 214]
     img_warp = utils.wrap_image(img_thres, points, w, h)
-    img_warp_points = utils.draw_points(img_copy, points)   
+    img_warp_points = utils.draw_points(img_copy, points)
     
     #Step 3: histogram
     mid_point,img_hist = utils.get_histogram(img_warp,display= True,min_percent=0.5,region=4)
@@ -65,8 +66,8 @@ def get_lane_curve(img,display = 2):
     return curve
 
 if __name__ == "__main__":
-    # cap = cv2.VideoCapture('http://192.168.29.216:4747/video')
-    cap = cv2.VideoCapture('vid1.mp4')
+    cap = cv2.VideoCapture('http://192.168.29.202:4747/video')
+    # cap = cv2.VideoCapture('vid1.mp4')
     # cap = utils.video_capture('vid1.mp4')
     initial_tracebar_vals = [102,80,20,214]
     utils.initialize_trackbars(initial_tracebar_vals)
@@ -79,6 +80,6 @@ if __name__ == "__main__":
         
         success,img = cap.read()
         img = cv2.resize(img,(480,240))
-        get_lane_curve(img,display=2)
-        cv2.imshow('Vid',img)
+        get_lane_curve(img)
+        # cv2.imshow('Vid',img)
         cv2.waitKey(1)

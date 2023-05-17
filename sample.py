@@ -1,33 +1,30 @@
-import cv2
-import utils
-import numpy as np
-
-# cap = cv2.VideoCapture('http://192.168.29.202:4747/video')
-# while True:
-#     succces,img = cap.read()
-#     img = cv2.resize(img,(480,240))
-#     img_thresh = utils.thresholding(img)
-#     cv2.imshow("vid",img)
-#     cv2.imshow("vid",img_thresh)
-#     cv2.waitKey(1)
-
-img = cv2.imread('image.jpeg')
-
-hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-cv2.imshow("image",img)
-
-# define range of blue color in HSV
-lower_yellow = np.array([15,50,180])
-upper_yellow = np.array([40,255,255])
-# Create a mask. Threshold the HSV image to get only yellow colors
-mask = cv2.inRange(hsv, lower_yellow, upper_yellow)
-
-# Bitwise-AND mask and original image
-# result = cv2.bitwise_and(img,img, mask= mask)
-
-# display the mask and masked image
-cv2.imshow('Mask',mask)
-cv2.waitKey(0)
-# cv2.imshow('Masked Image',result)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+from motor_module import Motor
+from lane_detection import get_lane_curve
+import webcam
+ 
+##################################################
+motor = Motor(2,3,4,17,22,27)
+##################################################
+ 
+def main():
+ 
+    img = webcam.getImg()
+    curveVal= get_lane_curve(img,1)
+ 
+    sen = 1.3  # SENSITIVITY
+    maxVAl= 0.3 # MAX SPEED
+    if curveVal>maxVAl:curveVal = maxVAl
+    if curveVal<-maxVAl: curveVal =-maxVAl
+    #print(curveVal)
+    if curveVal>0:
+        sen =1.7
+        if curveVal<0.05: curveVal=0
+    else:
+        if curveVal>-0.08: curveVal=0
+    motor.move(0.20,-curveVal*sen,0.05)
+    #cv2.waitKey(1)
+     
+ 
+if __name__ == '__main__':
+    while True:
+        main()

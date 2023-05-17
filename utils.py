@@ -3,8 +3,8 @@ import numpy as np
 
 def thresholding(img):
     img_Hsv = cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
-    lower_white = np.uint8([0,200,0])
-    upper_white = np.uint8([255,255,255])
+    lower_white = np.uint8([50,0,109])
+    upper_white = np.uint8([179,130,212])
     mask_white = cv2.inRange(img_Hsv,lower_white,upper_white)
     
     return mask_white
