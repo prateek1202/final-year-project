@@ -4,7 +4,8 @@ cap = cv.VideoCapture(0)
 
 def get_image(display = False,size=[480,240]):
     _,img = cap.read()
-    img = cv.resize(img,(size[0],size[1]))
+    print(img.shape)
+    img = cv.resize(img,(size[0],size[1]),fx=0,fy=0, interpolation = cv2.INTER_CUBIC)
     img = cv.rotate(img,cv.ROTATE_90_CLOCKWISE)
     if display:
         cv.imshow("Img",img)
