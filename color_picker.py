@@ -16,11 +16,11 @@ cv2.resizeWindow("HSV",640,340)
 cv2.createTrackbar("Hue Min", "HSV", 0,179,empty)
 cv2.createTrackbar("Hue Max", "HSV", 179,179,empty)
 cv2.createTrackbar("Sat Min", "HSV", 0,255,empty)
-cv2.createTrackbar("Sat Max", "HSV", 255,2555,empty)
+cv2.createTrackbar("Sat Max", "HSV", 255,255,empty)
 cv2.createTrackbar("Value Min", "HSV", 0,255,empty)
 cv2.createTrackbar("Value Max", "HSV", 255,255,empty)
 
-cap = cv2.VideoCapture('vid1.mp4')
+cap = cv2.VideoCapture('http://192.168.29.202:4747/video')
 frame_counter = 0
 
 while True:
